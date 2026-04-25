@@ -1,9 +1,9 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/kOqwghv0)
 # ML Project — [Название проекта]
 
-**Студент:** [ФИО / Student ID]
+**Студент:** Павлюк Алёна Романовна
 
-**Группа:** [Группа]
+**Группа:** БИВ231
 
 
 ## Оглавление
@@ -20,11 +20,18 @@
 
 <!-- Кратко опишите задачу: что предсказываем, какой датасет, метрика качества -->
 
-**Задача:** [Классификация / Регрессия / Кластеризация / ...]
+**Задача:** Многоклассовая классификация - предсказание статуса возврата товара `return_status`. 
+Классы:
+- `Kept` — товар оставлен
+- `Returned` — возвращён
+- `Exchanged` — обменян
 
-**Датасет:** [Название и источник датасета]
+**Датасет:** Samsung Global Product Sales Dataset📱
+https://www.kaggle.com/datasets/ashyou09/samsung-global-product-sales-dataset/data
 
-**Целевая метрика:** [Accuracy / F1 / RMSE / ...]
+15 500 строк, 28 колонок
+
+**Целевая метрика:** `F1-macro` - среднее арифметическое F1-меры по каждому классу
 
 
 ## Структура репозитория
@@ -32,13 +39,10 @@
 ```
 .
 ├── data
-│   ├── processed               # Очищенные и обработанные данные
-│   └── raw                     # Исходные файлы
+│   └── raw                     # исходный samsung_global_sales.csv
 ├── models                      # Сохранённые модели 
 ├── notebooks
-│   ├── 01_eda.ipynb            # EDA
-│   ├── 02_baseline.ipynb       # Baseline-модель
-│   └── 03_experiments.ipynb    # Эксперименты и ablation study
+│   ├── cp1_notebook.ipynb      # Основной ноутбук
 ├── presentation                # Презентация для защиты
 ├── report
 │   ├── images                  # Изображения для отчёта
@@ -71,15 +75,15 @@ pip install -r requirements.txt
 
 ## Данные
 - `data/raw/` — исходные файлы
-- `data/processed/` — предобработанные данные
 
 
 ## Результаты
-Здесь коротко выпишите результаты.
-| Модель | [Метрика 1] | [Метрика 2] | Примечание |
-|--------|-------------|-------------|------------|
-| Baseline | — | — | |
-| Лучшая модель | — | — | |
+
+| Модель | Accuracy | F1-macro | Примечание |
+|--------|----------|----------|-------------|
+| Logistic Regression (baseline) | 0.858710 | 0.307995 | только числовые признаки |
+| RandomForest | 0.858710 | 0.307995 | class_weight='balanced' не дал улучшения |
+| XGBoost | 0.576774 | 0.309178 | со взвешиванием выборки |
 
 
 ## Отчёт
