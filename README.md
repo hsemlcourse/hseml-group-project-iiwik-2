@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/kOqwghv0)
-# ML Project — [Название проекта]
+# ML Project — Предсказание статуса возврата Samsung
 
 **Студент:** Павлюк Алёна Романовна
 
@@ -35,23 +35,13 @@ https://www.kaggle.com/datasets/ashyou09/samsung-global-product-sales-dataset/da
 
 
 ## Структура репозитория
-Опишите структуру проекта, сохранив при этом верхнеуровневые папки. Можно добавить новые при необходимости.
 ```
 .
 ├── data
-│   └── raw                     # исходный samsung_global_sales.csv
-├── models                      # Сохранённые модели 
+│   └── raw                     # исходный samsung_global_sales_dataset.csv
 ├── notebooks
-│   ├── cp1_notebook.ipynb      # Основной ноутбук
-├── presentation                # Презентация для защиты
-├── report
-│   ├── images                  # Изображения для отчёта
-│   └── report.md               # Финальный отчёт
-├── src
-│   ├── preprocessing.py        # Предобработка данных
-│   └── modeling.py             # Обучение и оценка моделей
-├── tests
-│   └── test.py                 # Тесты пайплайна
+│   ├── cp1_notebook.ipynb      # Ноутбук CP1
+│   └── cp2_improvements.ipynb  # Ноутбук CP2
 ├── requirements.txt
 └── README.md
 ```
@@ -81,10 +71,16 @@ pip install -r requirements.txt
 
 | Модель | Accuracy | F1-macro | Примечание |
 |--------|----------|----------|-------------|
-| Logistic Regression (baseline) | 0.858710 | 0.307995 | только числовые признаки |
-| RandomForest | 0.858710 | 0.307995 | class_weight='balanced' не дал улучшения |
-| XGBoost | 0.576774 | 0.309178 | со взвешиванием выборки |
-
+| Logistic Regression (baseline) | 0.8589 | 0.308 | только числовые признаки |
+| RandomForest | 0.8589 | 0.308 | class_weight='balanced' |
+| XGBoost | 0.5696 | 0.318 | sample_weight balanced |
+| LightGBM | 0.6201 | 0.313 | class_weight='balanced' |
+| CatBoost | 0.6804 | 0.329 | auto_class_weights='Balanced' |
+| Tuned XGBoost (GridSearch) | 0.8589 | 0.308 | cv=3, f1_macro |
+| XGBoost + PCA | 0.8589 | 0.308 | 644 компоненты (95% дисперсии) |
+| Voting (RF+XGB+LGBM) | 0.8589 | 0.308 | soft voting |
+| Stacking (RF+XGB+LGBM→LR) | 0.8589 | 0.308 | |
+| **CatBoost** | **0.686** | **0.333** | лучший F1-macro |
 
 ## Отчёт
 
