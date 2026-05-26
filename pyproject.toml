@@ -1,0 +1,11 @@
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
+
+[project]
+name = "samsung-return-predictor"
+version = "1.0.0"
+requires-python = ">=3.10"
